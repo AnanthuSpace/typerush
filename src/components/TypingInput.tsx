@@ -1,4 +1,4 @@
-import { Input } from "@/components/ui/input";
+import { Input } from "./ui/input";
 
 export default function TypingInput({ input, setInput, word, handleInputChange, inputRef }) {
   return (

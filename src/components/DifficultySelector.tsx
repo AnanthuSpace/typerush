@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "./ui/button";
 
-export default function DifficultySelector({ difficulty, setDifficulty }) { // <-- Change `changeDifficulty` to `setDifficulty`
+export default function DifficultySelector({ difficulty, setDifficulty }) { 
     return (
       <div className="space-y-3 text-center">
         <h3 className="text-sm font-medium">Select Difficulty</h3>

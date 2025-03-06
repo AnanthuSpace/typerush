@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "./ui/badge";
 import { Timer, Trophy, Award } from "lucide-react";
 
 export default function GameStats({ timer, score, streak }) {
