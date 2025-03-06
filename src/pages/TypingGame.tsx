@@ -1,14 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import { Play, Zap } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardFooter,
-} from "@/components/ui/card";
+} from "../components/ui/card";
 
 import { fetchWord } from "../util/fetchWord";
 import GameStats from "../components/GameStats";
@@ -18,16 +18,18 @@ import GameOverScreen from "../components/GameOverScreen";
 import TimerProgress from "../components/TimerProgress";
 
 export default function TypingGame() {
-  const [word, setWord] = useState("");
-  const [input, setInput] = useState("");
-  const [score, setScore] = useState(0);
-  const [timer, setTimer] = useState(30);
-  const [gameStarted, setGameStarted] = useState(false);
-  const [highScore, setHighScore] = useState(0);
-  const [streak, setStreak] = useState(0);
-  const [difficulty, setDifficulty] = useState("medium");
+  const [word, setWord] = useState<string>("");
+  const [input, setInput] = useState<string>("");
+  const [score, setScore] = useState<number>(0);
+  const [timer, setTimer] = useState<number>(30);
+  const [gameStarted, setGameStarted] = useState<boolean>(false);
+  const [highScore, setHighScore] = useState<number>(0);
+  const [streak, setStreak] = useState<number>(0);
+  const [difficulty, setDifficulty] = useState<"easy" | "medium" | "hard">(
+    "medium"
+  );
 
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if (gameStarted && timer > 0) {
@@ -49,7 +51,7 @@ export default function TypingGame() {
     setTimeout(() => inputRef.current?.focus(), 100);
   };
 
-  const handleInputChange = async (e) => {
+  const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
     if (e.target.value.toLowerCase() === word.toLowerCase()) {
       setScore(
@@ -79,9 +81,11 @@ export default function TypingGame() {
             />
           )}
 
-          {gameStarted ? (
+          {!gameStarted ? (
+            <GameOverScreen score={score} highScore={highScore} />
+          ) : (
             <>
-              <GameStats timer={timer} score={score} streak={streak} />
+              <GameStats score={score} highScore={streak} />
               <TimerProgress timer={timer} />
               <TypingInput
                 input={input}
@@ -91,8 +95,6 @@ export default function TypingGame() {
                 inputRef={inputRef}
               />
             </>
-          ) : (
-            <GameOverScreen score={score} highScore={highScore} />
           )}
         </CardContent>
 
